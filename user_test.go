@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"net/http"
 	"net/http/cookiejar"
+	"os"
 	"testing"
 	"time"
 
@@ -51,7 +52,7 @@ func TestUserCRUD(t *testing.T) {
 		Status(200). // getting 200, but create should probably be 201
 		End().
 		JSON(&respBody)
-	fmt.Println(respBody.Id) // Useful for debugging, would not be for production
+	fmt.Fprintf(os.Stdout, "Created user Id: %s \n", respBody.Id) // Useful for debugging, would not be for production
 	// Defer delete as cleanup
 	defer apitest.New().
 		EnableNetworking(cli).
